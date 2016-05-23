@@ -1,66 +1,113 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Uta HagenBot|Embodied Interaction</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/myStyles.css" />
 
-  </head>
-  <body>
+</head>
 
-   <nav class="navbar navbar-default" role="navigation">
-       <div class="container-fluid">
-           <!-- Brand and toggle get grouped for better mobile display -->
-           <div class="navbar-header">
-               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                   <span class="sr-only">Toggle navigation</span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-                   <span class="icon-bar"></span>
-               </button>
-               <a class="navbar-brand" href="index.html">Uta HagenBot</a>
-           </div>
+<body>
 
-           <!-- Collect the nav links, forms, and other content for toggling -->
-           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Uta HagenBot</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
 
-           </div>
-           <!-- /.navbar-collapse -->
-       </div>
-       <!-- /.container-fluid -->
-   </nav>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-   <article class="container" role="main">
-       <section class="row">
-           <div class="col-xs-12">
-               <h1 id="main" tabindex="-1" >Uta is Listening</h1>
-           </div>
-       </section>
-       <section class="row">
-           <div class="col-xs-12">
-               <p id="transcript">
-                 <span id="final"></span>
-                 <span id="notFinal"></span>
-                 <span id="error"></span>
-               </p>
-           </div>
-       </section>
-       <section class="row">
-           <div class="col-xs-3 col-sm-offset-9">
-               <button id="toggleRecord" class="btn btn-primary">Start Rehersal</button>
-           </div>
-       </section>
+    <article class="container" role="main">
+        <!-- <section class="row">
+            <div class="col-xs-12">
+                <h1 id="main" tabindex="-1">Uta is Listening</h1>
+            </div>
+        </section> -->
+        <section class="row panel panel-default">
+            <div class="col-xs-12">
+                <a href="#"><h1>The Bear</h1></a>
+                <h2>Act I <small>Scene 1</small></h2>
+                <p><em class="stageDirections"><span class="role">Popova</span>'s living room. <span class="role">Popova</span>, dressed compleatly in black sits staring at a photograph. <span class="role userRole">Luka</span>, her old servent, tries to talk sense to her.</em>
+                    <br />
+                    <em class="stageDirections">(Enter <span class="role userRole">Luka</span>; he's upset.)</em></p>
+                <p>
+                    <span class="role roleScript userRole">Luka</span>
+                    <span class="line userRole">
+                       Missus, there's someone wants to see you. Says it can't wait.
+                    </span>
+                </p>
 
-   </article>
+                <p>
+                    <span class="role roleScript">Popova</span>
+                    <span class="line">
+                        Didn't you tell him that my husband is dead and that I see no one?
+                    </span>
+                </p>
+                <p>
+                    <span class="role roleScript userRole">Luka</span>
+                    <span class="line userRole">
+                      I did, but he doesn't want to listen, says it's very important.
+                    </span>
+                </p>
+                <p>
+                    <span class="role roleScript">Popova</span>
+                    <span class="line">
+                        And I said I see no one!
+                    </span>
+                </p>
+                <p>
+                    <span class="role roleScript userRole">Luka</span>
+                    <span class="line userRole">
+                      Thats what I told him, but he's... he's kind of a wild man&mdash; he started shouting and pushed his way into the house. He's in the dining room right now.
+                    </span>
+                </p>
+                <p>
+                    <span class="role roleScript">Popova</span>
+                    <span class="line">
+                        All right, all right, tell him all right. Reall! The nerve of some people!
+                    </span>
+                </p>
+                <em>(<span class="role userRole">Luka</span> goes out.)</em>
 
-  </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script src="js/myscript.js"></script>
+                <p id="transcript">
+                    <span id="final"></span>
+                    <span id="notFinal"></span>
+                    <span id="error"></span>
+                </p>
+            </div>
+        </section>
+        <section class="row">
+            <div class="col-xs-3 col-xs-offset-9">
+                <button id="toggleRecord" class="btn btn-primary">Start Rehersal</button>
+            </div>
+        </section>
+
+    </article>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="js/myscript.js"></script>
 
 
 </html>

@@ -1,0 +1,10 @@
+.role {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.roleScript::after {
+  content: ":";
+}
+.userRole {
+  background-color: yellow;
+}
