@@ -1,9 +1,9 @@
-"use strict";
+// "use strict";
 // caching replies
 var hello = new SpeechSynthesisUtterance("hello"),
     popovaDidnITell = new SpeechSynthesisUtterance("Didn't you tell him that my husband is dead and that I see no one?"),
     popovaAndISaid = new SpeechSynthesisUtterance("And I said I see no one!"),
-    popovaAllRight = new SpeechSynthesisUtterance("All right, all right, tell him all right. Reall! The nerve of some people!");
+    popovaAllRight = new SpeechSynthesisUtterance("All right, all right, tell him all right. Really! The nerve of some people!");
 
 function say (utterance) {
   window.speechSynthesis.speak(utterance);
@@ -24,8 +24,16 @@ function startDictation() {
 
 
         recognition.lang = "en-US";
+
         recognition.start();
-      var recognition;
+
+        recognition.onstart= function(e){
+          $("#listening").removeClass("sr-only")
+        };
+        recognition.onend= function(e){
+          $("#listening").addClass("sr-only")
+        };
+
 
         recognition.onresult = function(e) {
             var interim_transcript = '';
@@ -43,6 +51,7 @@ function startDictation() {
             }
             document.getElementById("final").innerHTML = final_transcript;
             document.getElementById("notFinal").innerHTML = interim_transcript;
+
         };
 
         recognition.onerror = function(e) {
@@ -50,6 +59,7 @@ function startDictation() {
             if (e.error === 'no-speech') {
                 msg =
                     "No speech was detected. Please turn on the microphone and try again.";
+
             } else if (e.error === 'audio-capture') {
                 msg =
                     "Please ensure that your microphone is connected to the computer and turned on.";
@@ -64,7 +74,7 @@ function startDictation() {
         };
 
     } // end hasOwnProperty
-    annyang.start();
+ return true;
 };// end start dictiation
 
 if (annyang) {
@@ -74,28 +84,42 @@ if (annyang) {
     annyang.addCommands({
         'hello': function() {
             say(hello);
+            annyang.start({ autoRestart: true, continuous: false });
 
         },
 
         "*can't wait": function() {
             say(popovaDidnITell);
+            annyang.start({ autoRestart: true, continuous: false });
         },
         "*very important": function() {
             say(popovaAndISaid);
+            annyang.start({ autoRestart: true, continuous: false });
         },
         "*right now": function() {
             say(popovaAllRight);
+            annyang.start({ autoRestart: true, continuous: false });
         },
         "*rehearse": function() {
-            startDictation();
+          // startDictation();
+          // annyang.start();
+
+
         }
 
 
     });
 
+    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases){
+      if (commandText == "*rehearse") {
+        $.when(startDictation()).then(annyang.start({ autoRestart: true, continuous: false }));
+      }
 
+
+
+    });
     // Start listening.
-    annyang.start();
+    annyang.start({ autoRestart: true, continuous: false });
 
 
 
