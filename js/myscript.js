@@ -82,3 +82,4 @@ annyang.start();
 
 
 }
+$(function(){})
