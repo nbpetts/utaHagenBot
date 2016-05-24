@@ -53,7 +53,8 @@
   var pauseListening = false;
   var isListening = false;
   var isRehearsing = false;
-  var final_transcript ="";
+
+  var userLine =0;
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
@@ -172,7 +173,7 @@
 
       // Set the max number of alternative transcripts to try and match with a command
       recognition.maxAlternatives = 5;
-
+      
       // In HTTPS, turn off continuous mode for faster results.
       // In HTTP,  turn on  continuous mode for much slower results, but no repeating security notices
       recognition.continuous = root.location.protocol === 'http:';
@@ -227,6 +228,7 @@
       };
 
       recognition.onresult  = function(event) {
+        var final_transcript ="";
         if(pauseListening) {
           if (debugState) {
             console.log('Speech heard, but annyang is paused');
@@ -235,6 +237,8 @@
         }
         // if in rehersal mode, post results to the line container.
         if (isRehearsing){
+
+
           var interim_transcript = '';
           if (typeof(event.results) == 'undefined') {
               reset();
@@ -248,10 +252,24 @@
                   interim_transcript += " " + val;
               }
           }
-          document.getElementById("final").innerHTML = final_transcript;
-          document.getElementById("notFinal").innerHTML = interim_transcript;
+          if (userLine == 0){
+            document.getElementById("userSpokenFinal0").innerHTML = final_transcript;
+            document.getElementById("userSpokenNotFinal0").innerHTML = interim_transcript;
+          }
+          if (userLine == 1){
+            document.getElementById("userSpokenFinal1").innerHTML = final_transcript;
+            document.getElementById("userSpokenNotFinal1").innerHTML = interim_transcript;
+          }
+          if (userLine == 2){
+            document.getElementById("userSpokenFinal2").innerHTML = final_transcript;
+            document.getElementById("userSpokenNotFinal2").innerHTML = interim_transcript;
+          }
 
-        }
+
+        } // endif
+        else {
+          recognition.interimResults = false;
+        }// end else
 
         // Map the results to an array
         var SpeechRecognitionResult = event.results[event.resultIndex];
@@ -594,6 +612,14 @@
      */
     isRehearsing: function() {
       return isRehearsing;
+    },
+
+    setUserLine: function(line) {
+      userLine = line;
+    },
+
+    getUserLine: function(line) {
+      return userLine;
     },
 
     /**
