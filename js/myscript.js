@@ -5,8 +5,8 @@ var hello = new SpeechSynthesisUtterance("hello"),
     popovaAndISaid = new SpeechSynthesisUtterance("And I said I see no one!"),
     popovaAllRight = new SpeechSynthesisUtterance("All right, all right, tell him all right. Really! The nerve of some people!");
 
-function say (utterance) {
-  window.speechSynthesis.speak(utterance);
+function say(utterance) {
+    window.speechSynthesis.speak(utterance);
 };
 
 function startDictation() {
@@ -27,11 +27,11 @@ function startDictation() {
 
         recognition.start();
 
-        recognition.onstart= function(e){
-          $("#listening").removeClass("sr-only")
+        recognition.onstart = function(e) {
+            $("#listening").removeClass("sr-only")
         };
-        recognition.onend= function(e){
-          $("#listening").addClass("sr-only")
+        recognition.onend = function(e) {
+            $("#listening").addClass("sr-only")
         };
 
 
@@ -74,8 +74,8 @@ function startDictation() {
         };
 
     } // end hasOwnProperty
- return true;
-};// end start dictiation
+    return true;
+}; // end start dictiation
 
 if (annyang) {
     // Add our commands to annyang
@@ -84,25 +84,27 @@ if (annyang) {
     annyang.addCommands({
         'hello': function() {
             say(hello);
-            annyang.start({ autoRestart: true, continuous: false });
+
 
         },
 
         "*can't wait": function() {
             say(popovaDidnITell);
-            annyang.start({ autoRestart: true, continuous: false });
+            if (annyang.isRehearsing()){
+              annyang.toggleIsRehearsing();
+            }
+
         },
         "*very important": function() {
             say(popovaAndISaid);
-            annyang.start({ autoRestart: true, continuous: false });
+
         },
         "*right now": function() {
             say(popovaAllRight);
-            annyang.start({ autoRestart: true, continuous: false });
+
         },
         "*rehearse": function() {
-          // startDictation();
-          // annyang.start();
+            annyang.toggleIsRehearsing();
 
 
         }
@@ -110,25 +112,68 @@ if (annyang) {
 
     });
 
-    annyang.addCallback('resultMatch', function(userSaid, commandText, phrases){
-      if (commandText == "*rehearse") {
-        $.when(startDictation()).then(annyang.start({ autoRestart: true, continuous: false }));
-      }
+//     annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+//
+//             if (commandText == "*rehearse") {
+//                 // $.when(startDictation()).then(annyang.start({ autoRestart: true, continuous: false }));
+//
+//                 var recognition = new annyang.getSpeechRecognizer();
+//                 var final_transcript = "";
+//
+//                 recognition.continuous = true;
+//                 recognition.maxAlternatives = 5;
+//                 recognition.interimResults = true;
+//
+//
+//
+//
+//                 recognition.lang = "en-US";
+//                 recognition.onstart = function(e) {
+//                     $("#listening").removeClass("sr-only")
+//                 };
+//                 recognition.onend = function(e) {
+//                     $("#listening").addClass("sr-only")
+//                 };
+//                 recognition.onresult = function(e) {
+//
+//                 var interim_transcript = '';
+//                 if (typeof(e.results) == 'undefined') {
+//                     reset();
+//                     return;
+//                 }
+//                 for (var i = e.resultIndex; i < e.results.length; ++i) {
+//                     var val = e.results[i][0].transcript;
+//                     if (e.results[i].isFinal) {
+//                         final_transcript += " " + val;
+//                     } else {
+//                         interim_transcript += " " + val;
+//                     }
+//                 }
+//                 document.getElementById("final").innerHTML = final_transcript;
+//                 document.getElementById("notFinal").innerHTML = interim_transcript;
+//
+//             };
+//
+// }
+//
+//             return;
+//
+//
+//     }); // emd callback.
 
 
 
-    });
-    // Start listening.
-    annyang.start({ autoRestart: true, continuous: false });
+// Start listening.
+annyang.start();
 
 
 
-    // Tell KITT to use annyang
-    // SpeechKITT.annyang();
-    //
-    // // Define a stylesheet for KITT to use
-    // SpeechKITT.setStylesheet('css/speachKitFlat.css');
-    //
-    // // Render KITT's interface
-    // SpeechKITT.vroom();
+// Tell KITT to use annyang
+// SpeechKITT.annyang();
+//
+// // Define a stylesheet for KITT to use
+// SpeechKITT.setStylesheet('css/speachKitFlat.css');
+//
+// // Render KITT's interface
+// SpeechKITT.vroom();
 }
