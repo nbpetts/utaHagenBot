@@ -21,14 +21,54 @@ function rehearse() {
 }
 
 function reset() {
+  $("#error").append("Please review your lines, I will reset the script in a second.")
+  setTimeout(function (){
+    $("#scriptContainer").empty();
+    $("#scriptContainer").append(script);
+
+  },10000)
+
+}
+
+function quickReset() {
+
   $("#scriptContainer").empty();
   $("#scriptContainer").append(script);
 }
+  
+function reherse() {
+  rehearse();
+  annyang.setUserLine(0);
+  annyang.toggleIsRehearsing();
 
+}
 
+function respondFirstLine () {
+  say(popovaDidnITell);
+  if (annyang.isRehearsing()){
 
+    annyang.setUserLine(1);
+  }
 
+}
 
+function respondSecondLine () {
+  say(popovaAndISaid);
+  if (annyang.isRehearsing()){
+    annyang.setUserLine(2);
+  }
+
+}
+
+function respondThridLine () {
+  say(popovaAllRight);
+  if (annyang.isRehearsing()){
+    reset();
+    annyang.toggleIsRehearsing();
+
+  }
+
+}
 
 
 if (annyang) {
@@ -43,35 +83,56 @@ if (annyang) {
         },
 
         "*can't wait": function() {
-            say(popovaDidnITell);
-            if (annyang.isRehearsing()){
+            respondFirstLine();
+        },
 
-              annyang.setUserLine(1);
-            }
-
+        "*can not wait": function() {
+            respondFirstLine();
+        },
+        "*cannot wait": function() {
+            respondFirstLine();
+        },
+        "*won't wait": function() {
+            respondFirstLine();
         },
         "*very important": function() {
-            say(popovaAndISaid);
-            if (annyang.isRehearsing()){
-              annyang.setUserLine(2);
-            }
+            respondSecondLine ();
+
+
+        },
+        "*real important": function() {
+            respondSecondLine ();
 
 
         },
         "*right now": function() {
-            say(popovaAllRight);
-            if (annyang.isRehearsing()){
-              reset();
-              annyang.toggleIsRehearsing();
-
-            }
+            respondThridLine ();
+        },
+        "*dining room": function() {
+            respondThridLine ();
         },
         "*lets rehearse": function() {
-            rehearse();
-            annyang.setUserLine(0);
-            annyang.toggleIsRehearsing();
+            reherse();
+
+        },
+        "*I want to rehearse": function() {
+            reherse();
+
+        },
+        "*now rehearse": function() {
+            reherse();
+
+        },
+        "*start rehearsing": function() {
+            reherse();
+
+        },
+        "*start rehearsal": function() {
+            reherse();
 
         }
+
+
 
 
     });
@@ -82,4 +143,7 @@ annyang.start();
 
 
 }
-$(function(){})
+$(function(){
+  $("#toggleRhearse").click(reherse);
+  $("#reset").click(quickReset);
+})
